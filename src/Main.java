@@ -1,16 +1,21 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main{
 	public static void main(String[] args) throws Exception{
 		ArrayList<int[]> list = new ArrayList<>();//лист кодовых слов
-		int r = 3;//степень порождающего многочлена
-		int k = 4;//длина сообщения
-		int d = 3;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Input r: ");
+		int r = sc.nextInt();//степень порождающего многочлена
+		System.out.println("Input k: ");
+		int k = sc.nextInt();//длина сообщения
+		System.out.println("Input d: ");
+		int d = sc.nextInt();
 		double p = 0.2;//значение ошибки для подсчета верхней границы ошибки 
 		double []p_bit = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};//массив ошибок на бит для подсчета точных значение ошибки
 		double []pe = new double[p_bit.length];
-		Cod_Dec []c = new Cod_Dec[16];
-		for(int i = 1; i < 16; i++){
+		Cod_Dec []c = new Cod_Dec[(int)Math.pow(2, k)];
+		for(int i = 1; i < (int)Math.pow(2, k); i++){
 			c[i] = new Cod_Dec(r, k, d);
 			int []m = new int[k];
 			Integer number = new Integer(i);
@@ -39,14 +44,9 @@ public class Main{
 	public static int[] get_m(int value, int i, int []m){//перевод числа в двоичную систему для построения всех кодовых слов
 		String number = Integer.toBinaryString(value);
 		if(i < 2){
-			m[0] = 0;
-			m[1] = 0;
-			m[2] = 0;
 			m[3] = (int)number.charAt(0) % 2;
 		}
 		if(i >= 2 && i < 4){
-			m[0] = 0;
-			m[1] = 0;
 			m[2] = (int)number.charAt(1) % 2;
 			m[3] = (int)number.charAt(0) % 2;
 		}
