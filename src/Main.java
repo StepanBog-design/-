@@ -47,20 +47,20 @@ public class Main{
 			m[3] = (int)number.charAt(0) % 2;
 		}
 		if(i >= 2 && i < 4){
-			m[2] = (int)number.charAt(1) % 2;
-			m[3] = (int)number.charAt(0) % 2;
+			m[2] = (int)number.charAt(0) % 2;
+			m[3] = (int)number.charAt(1) % 2;
 		}
 		if(i >= 4 && i < 8){
-			m[1] = (int)number.charAt(2) % 2;
+			m[1] = (int)number.charAt(0) % 2;
 			m[2] = (int)number.charAt(1) % 2;
-			m[3] = (int)number.charAt(0) % 2;
+			m[3] = (int)number.charAt(2) % 2;
 			m[0] = 0;
 		}
 		if(i >= 8 && i < 16){
-			m[0] = (int)number.charAt(3) % 2;
-			m[1] = (int)number.charAt(2) % 2;
-			m[2] = (int)number.charAt(1) % 2;
-			m[3] = (int)number.charAt(0) % 2;
+			m[0] = (int)number.charAt(0) % 2;
+			m[1] = (int)number.charAt(1) % 2;
+			m[2] = (int)number.charAt(2) % 2;
+			m[3] = (int)number.charAt(3) % 2;
 		}
 		return m;
 	}
