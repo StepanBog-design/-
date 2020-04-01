@@ -10,9 +10,9 @@ public class Main{
 		System.out.println("Input k: ");
 		int k = sc.nextInt();//длина сообщения
 		System.out.println("Input d: ");
-		int d = sc.nextInt();
-		double p = 0.2;//значение ошибки для подсчета верхней границы ошибки 
+		int d = sc.nextInt();//длина хемин
 		double []p_bit = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};//массив ошибок на бит для подсчета точных значение ошибки
+		double []p = new double [p_bit.length];//значение ошибки для подсчета верхней границы ошибки 
 		double []pe = new double[p_bit.length];
 		Cod_Dec []c = new Cod_Dec[(int)Math.pow(2, k)];
 		for(int i = 1; i < (int)Math.pow(2, k); i++){
@@ -34,34 +34,23 @@ public class Main{
 			}
 			System.out.println(")");
 		}
-		p = c[1].upper_bound(p);//верхняя граница ошибки
+		for (int j = 0; j < p_bit.length; j++){
+			p[j] = c[1].upper_bound(p_bit[j]);//верхняя граница ошибки
+		}
 		for(int i = 0; i < p_bit.length; i++){
 			pe[i] = c[1].exact_value(list, p_bit[i]);//точное значение ошибки
 		}	
-		c[1].print_to_csv(pe, p_bit);
+		c[1].print_to_csv(pe, p_bit, "exact_value");
+		c[1].print_to_csv(p, p_bit, "upper_bound");
 	}
 
 	public static int[] get_m(int value, int i, int []m){//перевод числа в двоичную систему для построения всех кодовых слов
-		String number = Integer.toBinaryString(value);
-		if(i < 2){
-			m[3] = (int)number.charAt(0) % 2;
-		}
-		if(i >= 2 && i < 4){
-			m[2] = (int)number.charAt(0) % 2;
-			m[3] = (int)number.charAt(1) % 2;
-		}
-		if(i >= 4 && i < 8){
-			m[1] = (int)number.charAt(0) % 2;
-			m[2] = (int)number.charAt(1) % 2;
-			m[3] = (int)number.charAt(2) % 2;
-			m[0] = 0;
-		}
-		if(i >= 8 && i < 16){
-			m[0] = (int)number.charAt(0) % 2;
-			m[1] = (int)number.charAt(1) % 2;
-			m[2] = (int)number.charAt(2) % 2;
-			m[3] = (int)number.charAt(3) % 2;
-		}
+		int b = m.length;   
+        while(value !=0 ) {  
+            m[b - 1] = value%2;    
+            value = value/2;
+            b--;  
+        }  
 		return m;
 	}
 }

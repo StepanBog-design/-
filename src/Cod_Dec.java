@@ -177,19 +177,23 @@ public class Cod_Dec{
 	}
 
 	public double exact_value(ArrayList<int[]> list, double p_bit){//подсчет точного значения ошибки
-		int []array = new int[n];
+		int []array = new int[n + 1];
 		int count = 0;
 		double sum = 0;
-		for(int i = 0; i < array.length; i++){
+		for(int i = 0; i < list.size(); i++){
 			count = code_word_weight(list.get(i));
-			for(int j = 0; j < n; j++){
+			for(int j = 0; j <= n; j++){
 				if(count == j){
 					array[j]++;
 					break;
 				}
 			}
 		}
-		for(int i = d; i < n; i++){
+
+		for(int i = d; i <= n; i++){
+			if (n == i){
+				sum += (double)(array[i] * Math.pow(p_bit, i) * 1);
+			}else
 			sum += (double)(array[i] * Math.pow(p_bit, i) * Math.pow((1 - p_bit), (n - i)));
 		}
 		System.out.println("Pe = " + sum);
@@ -213,8 +217,8 @@ public class Cod_Dec{
 		System.out.print("\n");
 	}
 
-	public void print_to_csv(double []array1, double []array2) throws Exception{//вывод в csv файл для построения графика
-    	PrintWriter writer = new PrintWriter(new File("data.csv"));
+	public void print_to_csv(double []array1, double []array2, String name) throws Exception{//вывод в csv файл для построения графика
+    	PrintWriter writer = new PrintWriter(new File(name + ".csv"));
     	StringBuilder sb = new StringBuilder();
     	sb.append("p_bit");
     	sb.append(";");
